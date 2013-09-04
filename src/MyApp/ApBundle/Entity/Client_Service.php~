@@ -1,0 +1,89 @@
+<?php
+namespace MyApp\ApBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * @ORM\Entity
+ */
+class Client_Service
+{
+    /**
+     * @ORM\Id
+     * @ORM\ManyToOne(targetEntity="Client", inversedBy="Client_Service")
+     */
+    private $client;
+    
+     /**
+     * @ORM\Id
+     * @ORM\ManyToOne(targetEntity="Service", inversedBy="Client_Service")
+     * @Assert\MinLength(3)
+     */    
+    private $service;
+    
+     /**
+     * @ORM\Column(type="string",length="255")
+     */    
+    private $prix;
+
+    /**
+     * Set prix
+     *
+     * @param string $prix
+     */
+    public function setPrix($prix)
+    {
+        $this->prix = $prix;
+    }
+
+    /**
+     * Get prix
+     *
+     * @return string 
+     */
+    public function getPrix()
+    {
+        return $this->prix;
+    }
+
+    /**
+     * Set client
+     *
+     * @param MyApp\ApBundle\Entity\Client $client
+     */
+    public function setClient(\MyApp\ApBundle\Entity\Client $client)
+    {
+        $this->client = $client;
+    }
+
+    /**
+     * Get client
+     *
+     * @return MyApp\ApBundle\Entity\Client 
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * Set service
+     *
+     * @param MyApp\ApBundle\Entity\Service $service
+     */
+    public function setService(\MyApp\ApBundle\Entity\Service $service)
+    {
+        $this->service = $service;
+    }
+
+    /**
+     * Get service
+     *
+     * @return MyApp\ApBundle\Entity\Service 
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+}

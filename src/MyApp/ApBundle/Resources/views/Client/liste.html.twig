@@ -1,0 +1,31 @@
+<table class="centrer">
+<tr>
+{# sorting of properties based on query components #}
+    <th>{{ pagination.sortable('Flag', 'c.flag')|raw }}</th>
+    <th>{{ pagination.sortable('Date', 'c.created')|raw }}</th>
+    <th>{{ pagination.sortable('Rappel', 'c.date')|raw }}</th>
+    <th>{{ pagination.sortable("client.nom" | trans, 'c.nom')|raw }}</th>
+    <th>{{ pagination.sortable("client.prenom" | trans, 'c.prenom')|raw }}</th>
+    <th>{{ pagination.sortable("client.telephone" | trans, 'c.phoneNumber')|raw }}</th>
+    <th>Service</th>
+    <th>{{ pagination.sortable('Ville', 'a.city')|raw }}</th>
+</tr>
+
+{# table body #}
+{% for client in pagination %}
+<tr {% if loop.index is odd %}class="color"{% endif %}>
+    <td>{% if client.flag %}<img src="{{ asset('bundles/myappap/images/flamme.png') }}" title="Attention"/>{% endif %}</td>
+    <td><a href="{{ path('myapp_client_modifier', { 'id': client.id }) }}"> {{ client.created|date('d/m/y') }}</a></td>
+    <td>{% if client.date != null %}{{ client.date|date('d/m/y') }}{% endif %}</td>
+    <td><a href="{{ path('myapp_estimation_voirClient', { 'id': client.id }) }}">{{ client.nom }}</a></td>
+    <td>{{ client.prenom }}</td>
+    <td>{{ client.phoneNumber }}</td>
+    <td>{{ client.service.type|capitalize }}</td>
+    <td>{{ client.city.city }}</td>
+</tr>
+{% endfor %}
+</table>
+{# display navigation #}
+<div class="navigation">
+    {{ pagination.render()|raw }}
+</div>

@@ -1,0 +1,9 @@
+{% extends 'MyAppApBundle::layout.html.twig' %}
+{% block title %}Comptabilité{% endblock %}
+
+{% block billFinal %}
+    
+{% include 'MyAppApBundle:Comptabilite:liste.html.twig' with { 'form' : form}  %}
+
+{% endblock %}
+

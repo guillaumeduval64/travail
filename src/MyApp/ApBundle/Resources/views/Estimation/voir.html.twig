@@ -1,0 +1,153 @@
+{% extends 'MyAppApBundle::layout.html.twig' %}
+{% block title %}{{ client.nom|upper }} {{ client.prenom|capitalize }}{% endblock %}
+
+{% block recherche %}
+<div id= "no-margin">
+    <h4><b>État: {{ client.etat }} </b></h4>
+            <h6><a href="{{ path('myapp_estimation_suivant', { 'id': client.id, 'client': client, 'etat': client.etat, 'param':'Prev' }) }}"> Précèdent</a><a href="{{ path('myapp_estimation_suivant', { 'id': client.id, 'etat': client.etat, 'param':'Next' }) }}"> Suivant</a></h6>
+</div>
+{% endblock %}
+
+{% block principalNote %}
+
+{% include 'MyAppApBundle:Client:ajouter.html.twig' %}
+<div class= "left-map">
+<table id="map">
+            <tr>
+                <td>
+                    {{ google_map_container(map) }}
+                    {{ google_map_js(map) }}
+                </td>
+            </tr>
+            </table>
+        <h6><a href="{{ path('myapp_estimation_suivant', { 'id': client.id, 'client': client, 'param':'Prev' }) }}"> Précèdent</a><a href="{{ path('myapp_estimation_suivant', { 'id': client.id, 'client': client, 'param':'Next' }) }}"> Suivant</a></h6>
+        <h6>Créé par: {{ client.user|capitalize }} le {{ client.dateTable.date|date('d M y') }}</h6>
+    <h6>Service demandés: {{ client.service.type|capitalize }}</h6>
+<address>
+  <b><a href="#myModal"  data-toggle="modal">{{ client.nom|upper }}  {{ client.prenom|capitalize }}</a></b><br>
+  {{ client.number }} {{ client.street }}<br>
+  {{ client.city.city|capitalize }}, {{ client.pc }}<br>
+  <abbr title="Phone">P:</abbr> {{ client.phoneNumber }}<br>
+  <abbr title="Cell">C:</abbr> {{ client.phoneNumberCell }}<br>
+  <a href="mailto:{{ client.email }}">{{ client.email }}</a>
+</address>
+    
+    <pre id="note">Notes: <a rel="modal-profile" href="#"><img src="{{ asset('bundles/myappap/images/add.png') }}" title="Ajouter Note Client"/></a></pre>
+                    
+{% for n in notes %}
+    <span class="dateSpan"><b>{{ n.created|date('d/m/y') }}: {{ n.type }}</b></span> {{ n.note|capitalize }}<br>
+{% else %}
+
+        Aucunes notes trouvées
+
+{% endfor %}
+    </div>
+
+{% endblock %}
+    
+{% block right %}
+<div >
+
+      <div>  <pre id="vertical">Services<a href="{{ path('myapp_estimation_creerService', { 'id': client.id }, { 'map': map }) }}"> <img src="{{ asset('bundles/myappap/images/add.png') }}" title="Ajouter Service"/></a></pre>
+</div>
+      <div >
+<table id="tbestimation">
+
+    
+{% if clientServices %}
+{% for s in clientServices %}
+        <tr>
+            <td><span class="dateSpan"><b>{{ s.created|date('d/m/y') }}</b></span></td>
+            <td>{{ s.service.type }}</td>
+            <td>{{ s.prix|number_format(2, ',', '.') }}$</td>
+            <td>{{ s.note|capitalize }}</td> 
+            <td><a href="{{ path('myapp_service_supprimerService', { 'idd': s.id,'id': client.id  }) }}"><img src="{{ asset('bundles/myappap/images/cross.png') }}" title="Supprimer service"/></a></td>
+          
+        {% if s.image.webpath is defined %}
+        <td><span class="icone"><img src="{{ asset(s.image.webPath) }}" alt="{{ s.image.alt }}" class="img-polaroid"/></span></td>
+        {% else %}
+        <td/>
+ {% endif %}
+        </tr>
+{% else %}
+        <tr>
+            <td>Aucun Services trouvés</td>
+        </tr>
+
+{% endfor %}
+    </table>
+ {% endif %}
+
+              </div>
+              </div>
+
+<div>
+
+             <pre id="vertical">Contrats<a href="{{ path('myapp_contrat_ajouter', { 'id': client.id }) }}"> <img src="{{ asset('bundles/myappap/images/add.png') }}" title="Ajouter Contrat"/></a></pre>
+
+     {% if clientservicestest %}
+<table id="tbestimation">
+{% for co in clientservicestest %}
+        <tr>
+            <td><span class="dateSpan"><b>{{ co.created|date('d/m/y') }}:</b></span></td>
+            <td>{{ co.numero }}</td>
+            <td>{{ co.service }}</td>
+            <td>{{ co.prix }}$</td>
+
+            <td><a href="{{ path('myapp_contrat_voir', { 'id': co.id }) }}"><img src="{{ asset('bundles/myappap/images/binoculars.png') }}" alt="Stats"/></a></td></td>
+            {% if co.date != null %}
+                <td>{{ co.date|date('d M y') }}</td
+            {% else %}
+                <td>N/A</td>
+            {% endif %}
+                
+
+
+
+         </tr>       
+{% else %}
+    <tr>
+        <td>Aucunes contrats trouvées</td>
+    </tr>
+{% endfor %}
+    </table> 
+{% endif %}   
+        </div>
+        
+    <div class="modal-profile">
+<h2>Ajouter une note:</h2>
+    <a class="modal-close-profile" title="Close profile window" href="#"><img src="{{ asset('bundles/myappap/images/cross.png') }}" title="Fermer la fenêtre"/></a>
+
+    <form action="" method="post" {{ form_enctype(formNote) }}>
+    {{ form_widget(formNote) }}
+    {{ form_rest(formNote) }}
+    <input type="submit" />
+</form>
+        </div>
+        
+   
+</table>   
+    
+<script type="text/javascript">
+$.fn.center = function () {
+        this.css("position","absolute");
+        this.css("top", ( jQuery(window).height() - this.height() ) / 2+jQuery(window).scrollTop() + "px");
+        this.css("left", ( jQuery(window).width() - this.width() ) / 2+jQuery(window).scrollLeft() + "px");
+        return this;
+      }
+ 
+    $(".modal-profile").center();
+ 
+ 
+    $('a[rel="modal-profile"]').click(function() {
+        $('.modal-profile').fadeIn("slow");
+        $('.modal-lightsout').fadeTo("slow", .9);
+    });
+ 
+    $('a.modal-close-profile, .modal-lightsout').click(function() {
+        $('.modal-profile').fadeOut("slow");
+        $('.modal-lightsout').fadeOut("slow");
+    });
+</script>
+    
+{% endblock %}

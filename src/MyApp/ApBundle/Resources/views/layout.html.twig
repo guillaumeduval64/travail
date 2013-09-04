@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}Intranet{% endblock %}</title>
+        <link rel="icon" href="{{ asset('bundles/myappap/images/user.png') }}" type="image/png">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="{{ asset('bundles/myappap/css/main.css') }}" type="text/css" media="all" />
+        <link rel="stylesheet" href="{{ asset('bundles/myappap/css/jquery-ui-1.10.1.css') }}" type="text/css" media="all" />
+        <link rel="stylesheet" href="{{ asset('bundles/myappap/css/jquery.ui.timepicker.css') }}" type="text/css" media="all" />
+        <link rel="stylesheet" href="{{ asset('bundles/myappap/css/bootstrap/css/bootstrap.css') }}" type="text/css" media="all" />  
+          <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+
+{% javascripts
+    '@MyAppApBundle/Resources/public/js/jquery-ui-1.10.1.js'
+    '@MyAppApBundle/Resources/public/js/bootstrap.js'
+    '@MyAppApBundle/Resources/public/js/jquery.maskedinput.js'
+    '@MyAppApBundle/Resources/public/js/date.js' %}
+    <script src="{{ asset_url }}"></script>
+        <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD5L1XB5XpNDaBBRJgxFnOnM--NpHEcE-U&sensor=true">
+    </script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
+<script type="text/javascript"> </script>
+{% endjavascripts %}
+            <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+
+<script>
+    //bootstrap typeahead not working on search, je ne sais pas pk
+$(document).ready(function() {
+$('input.form_recherche').typeahead({
+  name: 'accounts',
+  local: ['timtrueman', 'JakeHarding', 'vskarich']
+    });
+});
+</script>         
+   
+<script>
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      
+    //         ['Semaine', 'P', 'E','C','P'],
+    //      ['0',  1170, 460, 100, 460],
+    //      ['-1',  660, 1120, 100, 502],
+    //      ['-2',  1030, 540, 200, 809]
+    //    ]); 
+      
+      var test = {% if test is defined %} {{ test | json_encode | raw }} {% endif %}; 
+      console 
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(test);
+
+        var options = {
+          title: 'Performance',
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }  
+</script>
+
+<script>
+
+
+</script>
+
+    </head>
+    <body>
+        <div id="test">
+            <div id="page">
+                 <div id="logo">
+        <!--<img src="{{ asset('bundles/myappap/images/logo.png') }}" title="Client"/>-->
+                </div>
+                <div id="header">
+                                            <div class="navbar">
+                            <div class="navbar-inner">
+                    <div id="recherche">
+                        {% block recherche %}
+                        {% endblock %}
+                    </div>
+                        
+                        {% for flashMessage in app.session.flashbag.get('notice') %}
+                        <div class="alert">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong><img src="{{ asset('bundles/myappap/images/valid.png') }}" title="Client"/></strong>
+  </div>
+{% endfor %}
+  
+                    <div id="menu">
+
+                        <ul>
+                            <table id="menuTable">
+                                <tr>
+                                    <td>
+                                        <li><a href="{{ path('myapp_client_lister') }}"><img src="{{ asset('bundles/myappap/images/grey_menu/administrator.png') }}" title="Client"/></a></li>
+                                    </td>
+                                    <td>
+                                    <li><a href="{{ path('myapp_rdv_lister') }}"><img src="{{ asset('bundles/myappap/images/grey_menu/bell.png') }}" title="RDV"/></a></li>
+                                    </td>
+                                    <td>
+                                        <li><a href="{{ path('myapp_contrat_lister') }}"><img src="{{ asset('bundles/myappap/images/grey_menu/clipboard.png') }}" title="Contrat"/></a></li>
+                                    </td>
+                                    <td>
+                                        <li><a href="{{ path('myapp_production_booke') }}"><img src="{{ asset('bundles/myappap/images/grey_menu/calendar.png') }}" title="Production"/></a></li>
+                                    </td>
+                                    <td>
+                                        <li><a href="{{ path('myapp_comptabilite_lister') }}"><img src="{{ asset('bundles/myappap/images/grey_menu/money_bag.png') }}" title="Comptabilité"/></a></li>
+                                    </td>
+                                    <td>
+                                        <li><a href="{{ path('myapp_map_voir') }}"><img src="{{ asset('bundles/myappap/images/grey_menu/world.png') }}" title="Carte"/></a></li></td>
+                                        <!--<li><a href="{{ path('myapp_map_journey') }}"><img src="{{ asset('bundles/myappap/images/grey_menu/world.png') }}" title="Carte"/></a></li>             -->
+                                    <td>
+                                        <li><a href="{{ path('myapp_message_liste') }}"><img src="{{ asset('bundles/myappap/images/grey_menu/emoticon_grin.png') }}" title="Message"/></a></li></td>
+                                    <td>
+                                        <li><a href="{{ path('myapp_dashboard_principal') }}"><img src="{{ asset('bundles/myappap/images/stats_lines.png') }}" title="Dashboard"/></a></li>
+                                    </td>
+                                </tr>
+                            </table>
+                        </ul>
+                    </div>
+                </div>
+                            </div>
+                   
+
+
+                          <div id="stat">          
+                    {% block stat %}
+                       
+
+                        
+                    {% endblock %}
+                </div>
+                    {% block content %}
+                    {% endblock %}
+                    
+                        {% block principalNote %}
+                    <div id="principalNote"></div>
+                        {% endblock %}
+                    <div id="right">
+                        {% block right %}
+                        {% endblock %}
+                    </div>
+                    
+                    <div id="billFinal">
+                        {% block billFinal %}
+                        {% endblock %}
+                    </div>
+
+                    {% block javascripts %}{% endblock %}             
+                </div>
+                <div id="noteRight">
+                    {% block note %}
+                    {% endblock %}
+                    {% block bill %}
+                    {% endblock %}
+                </div>    
+                <div id="footer">                            
+                    {% include "MyAppUtilisateurBundle::connexion.html.twig" %}
+                    <p>{{ "rights" | trans }} © 2012</p>
+                                    <div id="choisir_langue">Choisir la langue :
+                    <a href="{{ path('myapp_choisir_langue', {'langue' : 'fr'}) }}">FR</a> |
+                    <a href="{{ path('myapp_choisir_langue', {'langue' : 'en'}) }}">EN</a>
+                </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

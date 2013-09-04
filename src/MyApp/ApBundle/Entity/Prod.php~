@@ -1,0 +1,231 @@
+<?php
+namespace MyApp\ApBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * @ORM\Entity
+ */
+class Prod
+{
+    /**
+     * @ORM\GeneratedValue
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+    
+     /**
+     * @ORM\Column(type="string",length="255")
+     * @Assert\NotBlank()
+     * @Assert\MinLength(3)
+     */    
+    private $type;
+    
+     /**
+     * @ORM\Column(type="string",length="255")
+     */    
+    private $previsionDateProd;
+    
+     /**
+     * @ORM\Column(type="string",length="255")
+     */    
+    private $dateProd;
+    
+     /**
+     * @ORM\Column(type="time")
+     */    
+    private $previsionHeureD;
+    
+     /**
+     * @ORM\Column(type="time")
+     */    
+    private $previsionHeureF;
+    
+     /**
+     * @ORM\Column(type="time")
+     */    
+    private $heureD;
+    
+     /**
+     * @ORM\Column(type="time")
+     */    
+    private $heureF;
+    
+     /**
+     * @ORM\Column(type="string",length="255")
+     */    
+    private $note; 
+    
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string 
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set previsionDateProd
+     *
+     * @param string $previsionDateProd
+     */
+    public function setPrevisionDateProd($previsionDateProd)
+    {
+        $this->previsionDateProd = $previsionDateProd;
+    }
+
+    /**
+     * Get previsionDateProd
+     *
+     * @return string 
+     */
+    public function getPrevisionDateProd()
+    {
+        return $this->previsionDateProd;
+    }
+
+    /**
+     * Set dateProd
+     *
+     * @param string $dateProd
+     */
+    public function setDateProd($dateProd)
+    {
+        $this->dateProd = $dateProd;
+    }
+
+    /**
+     * Get dateProd
+     *
+     * @return string 
+     */
+    public function getDateProd()
+    {
+        return $this->dateProd;
+    }
+
+    /**
+     * Set previsionHeureD
+     *
+     * @param time $previsionHeureD
+     */
+    public function setPrevisionHeureD($previsionHeureD)
+    {
+        $this->previsionHeureD = $previsionHeureD;
+    }
+
+    /**
+     * Get previsionHeureD
+     *
+     * @return time 
+     */
+    public function getPrevisionHeureD()
+    {
+        return $this->previsionHeureD;
+    }
+
+    /**
+     * Set previsionHeureF
+     *
+     * @param time $previsionHeureF
+     */
+    public function setPrevisionHeureF($previsionHeureF)
+    {
+        $this->previsionHeureF = $previsionHeureF;
+    }
+
+    /**
+     * Get previsionHeureF
+     *
+     * @return time 
+     */
+    public function getPrevisionHeureF()
+    {
+        return $this->previsionHeureF;
+    }
+
+    /**
+     * Set heureD
+     *
+     * @param time $heureD
+     */
+    public function setHeureD($heureD)
+    {
+        $this->heureD = $heureD;
+    }
+
+    /**
+     * Get heureD
+     *
+     * @return time 
+     */
+    public function getHeureD()
+    {
+        return $this->heureD;
+    }
+
+    /**
+     * Set heureF
+     *
+     * @param time $heureF
+     */
+    public function setHeureF($heureF)
+    {
+        $this->heureF = $heureF;
+    }
+
+    /**
+     * Get heureF
+     *
+     * @return time 
+     */
+    public function getHeureF()
+    {
+        return $this->heureF;
+    }
+
+    /**
+     * Set note
+     *
+     * @param string $note
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+    }
+
+    /**
+     * Get note
+     *
+     * @return string 
+     */
+    public function getNote()
+    {
+        return $this->note;
+    }
+}

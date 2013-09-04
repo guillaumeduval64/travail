@@ -1,0 +1,11 @@
+<a href="{{ path('myapp_comptabilite_lister') }}">Tout</a> 
+<br>
+{% for t in types %}
+    <a href="{{ path('myapp_comptabilite_voirEssence', { 'id': t.id }) }}">{{ t.type }}</a> 
+<br>
+{% else %}
+   <br>
+ <a href="#myModalTest" role="button" class="btn" data- Aucun bill n'a été trouvé.
+{% endfor %}
+<br>
+ <a href="#myModal" role="button" class="btn" data-toggle="modal"><img src="{{ asset('bundles/myappap/images/money.png') }}" title="Ajouter compta"/></a>

@@ -1,0 +1,8 @@
+{% extends 'MyAppApBundle::layout.html.twig' %}
+{% block title %}Rendez-vous:{% endblock %}
+{% block recherche %}
+{% include 'MyAppApBundle:Rdv:menu.html.twig' with {'menu': '3: Rdv'} %}
+{% endblock %}
+{% block content %} 
+    {% include 'MyAppApBundle:Rdv:listeRdv.html.twig' with {'pagination' : pagination}  %}
+{% endblock %}

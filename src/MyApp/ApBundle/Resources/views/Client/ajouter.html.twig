@@ -1,0 +1,75 @@
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Ajout d'un client:</h3>
+  </div>
+         <form action="" method="POST" class="form-horizontal">
+  <div class="modal-body">
+
+    <table>
+        <tr>
+            <td>{{ form_errors(formClient) }}</td>
+        </tr>
+        <tr>
+            <td>
+            {{ form_label(formClient.flag) }}{{ form_widget(formClient.flag) }}
+            </td>
+        </tr>
+        <tr>
+            <td>{{ form_widget(formClient.titles) }}</td>
+            <td>{{ form_widget(formClient.etat, { 'attr': {'class':'input-medium'} }) }}</td>
+             <td>{{ form_widget(formClient.ancien, { 'attr': {'class':'input-small'} }) }}</td>
+             <td>{{ form_widget(formClient.service, { 'attr': {'class':'input-small'} }) }}</td>
+
+        </tr>
+            <tr>
+            <td>{{ form_widget(formClient.heure, { 'attr': {'class':'input-small timepicker'} }) }}</td>
+            <td>{{ form_errors(formClient.heure, { 'attr': {'class':'input-small'} }) }}</td>
+        </tr>
+   </table>
+   <br>     
+   <table>
+        <tr>
+            <td>{{ form_widget(formClient.nom, { 'attr': {'placeholder': 'nom', 'class':'input-small'} }) }}</td>
+            <td>{{ form_widget(formClient.prenom, { 'attr': {'placeholder': 'prenom', 'class':'input-small'} }) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_widget(formClient.phoneNumber, { 'attr': {'placeholder': 'Tél','autocomplete':'off', 'class':'input-small phone'} }) }}</td>
+            <td>{{ form_widget(formClient.phoneNumberCell, { 'attr': {'placeholder': 'Cell','autocomplete':'off', 'class':'input-small phone'} }) }}</td>
+            <td>{{ form_widget(formClient.email, { 'attr': {'placeholder': 'Email', 'class':'input-medium'} }) }}</td>
+        </tr>
+    </table>
+   <br>
+   <table>
+        <tr>
+            <td>{{ form_widget(formClient.number, { 'attr': {'placeholder': 'num', 'class':'input-mini'} }) }}</td>
+            <td>{{ form_widget(formClient.street, { 'attr': {'placeholder': 'rue', 'class':'input-medium'} }) }}</td>
+               <td>
+            {{ form_widget(formClient.city, { 'attr': {'class':'input-medium'} }) }}
+            </td>
+            <td>
+            {{ form_widget(formClient.pc, { 'attr': {'placeholder': 'CP', 'class':'input-small'} }) }}
+            </td>
+            </tr>
+               </table>
+   <table>
+                        <tr>
+            <td>{{ form_widget(formClient.date, { 'attr': {'placeholder': 'Date', 'class':'input-medium date'} }) }}</td>
+            <td></td>
+            </tr>
+   </table>
+   
+    {{ form_rest(formClient) }}
+        <br>
+           
+
+    {{ form_rest(formClient) }}
+        <br>
+    
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Fermer</button>
+    <input type="submit" class="btn btn-primary" value="Ajouter" title="Ajouter">
+  </div>
+     </form>   
+</div>

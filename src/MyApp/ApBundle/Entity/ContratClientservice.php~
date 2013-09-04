@@ -1,0 +1,88 @@
+<?php
+namespace MyApp\ApBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * @ORM\Entity
+ */
+class ContratClientservice
+{
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @var integer $id
+     */
+    protected $id;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Contrat", inversedBy="ContratClientservice", cascade={"remove", "persist"})
+     * */
+    protected $contrat;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ClientService", inversedBy="ContratClientservice", cascade={"remove", "persist"})
+     * */
+    protected $clientservice;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set contrat
+     *
+     * @param \MyApp\ApBundle\Entity\Contrat $contrat
+     * @return ContratClientservice
+     */
+    public function setContrat(\MyApp\ApBundle\Entity\Contrat $contrat = null)
+    {
+        $this->contrat = $contrat;
+    
+        return $this;
+    }
+
+    /**
+     * Get contrat
+     *
+     * @return \MyApp\ApBundle\Entity\Contrat 
+     */
+    public function getContrat()
+    {
+        return $this->contrat;
+    }
+
+    /**
+     * Set clientservice
+     *
+     * @param \MyApp\ApBundle\Entity\ClientService $clientservice
+     * @return ContratClientservice
+     */
+    public function setClientservice(\MyApp\ApBundle\Entity\ClientService $clientservice = null)
+    {
+        $this->clientservice = $clientservice;
+    
+        return $this;
+    }
+
+    /**
+     * Get clientservice
+     *
+     * @return \MyApp\ApBundle\Entity\ClientService 
+     */
+    public function getClientservice()
+    {
+        return $this->clientservice;
+    }
+}

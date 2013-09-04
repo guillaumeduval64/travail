@@ -1,0 +1,20 @@
+MyAppUtilisateurBundle:
+    resource: "@MyAppUtilisateurBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+MyAppApBundle:
+    resource: "@MyAppApBundle/Resources/config/routing.yml"
+    prefix:   /intranet
+
+# Internal routing configuration to handle ESI
+#_internal:
+#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#   prefix:   /_internal
+
+fos_user_group:
+    resource: "@FOSUserBundle/Resources/config/routing/group.xml"
+    prefix: /group
+
+console:
+    resource: "@CoreSphereConsoleBundle/Resources/config/routing.yml"
